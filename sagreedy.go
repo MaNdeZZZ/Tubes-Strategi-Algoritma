@@ -34,7 +34,6 @@ func main() {
 		fmt.Println("")
 	}
 
-	// Menambahkan algoritma greedy
 	fmt.Println("== Greedy by Berat ==")
 	bestBeratSolution := greedyByBerat(X, kapasitas)
 	fmt.Println("== Greedy by Kalori ==")
@@ -42,7 +41,6 @@ func main() {
 	fmt.Println("== Greedy by Density ==")
 	bestDensitySolution := greedyByDensity(X, kapasitas)
 
-	// Membandingkan solusi terbaik dari ketiga algoritma greedy
 	bestSolution := bestBeratSolution
 	if bestKaloriSolution.totalKalori > bestSolution.totalKalori {
 		bestSolution = bestKaloriSolution
@@ -51,7 +49,6 @@ func main() {
 		bestSolution = bestDensitySolution
 	}
 
-	// Menampilkan solusi terbaik
 	fmt.Println("== Solusi Terbaik ==")
 	fmt.Println("Total Berat yang Dipilih:", bestSolution.totalBerat)
 	fmt.Println("Total Kalori yang Dipilih:", bestSolution.totalKalori)
@@ -61,7 +58,7 @@ func main() {
 	}
 	fmt.Print("")
 	start := time.Now()
-	defer trackTime(start, "program") // Panggil fungsi trackTime setelah main() selesai
+	defer trackTime(start, "program") 
 }
 
 func jenisBarang(T *tabPendaki, barang string) {
@@ -122,7 +119,6 @@ func dataKalori(T *tabPendaki) {
 	T[9].kalori = 450
 }
 
-// Fungsi greedyByBerat
 func greedyByBerat(T tabPendaki, capacity float64) greedySolution {
 	sort.Slice(T[:], func(i, j int) bool {
 		if T[i].jenis == "Minuman" && T[j].jenis != "Minuman" {
@@ -160,7 +156,6 @@ func greedyByBerat(T tabPendaki, capacity float64) greedySolution {
 	return greedySolution{selectedItems: selected, totalBerat: totalBerat, totalKalori: totalKalori}
 }
 
-// Fungsi greedyByKalori
 func greedyByKalori(T tabPendaki, capacity float64) greedySolution {
 	sort.Slice(T[:], func(i, j int) bool {
 		if T[i].jenis == "Minuman" && T[j].jenis != "Minuman" {
@@ -198,7 +193,6 @@ func greedyByKalori(T tabPendaki, capacity float64) greedySolution {
 	return greedySolution{selectedItems: selected, totalBerat: totalBerat, totalKalori: totalKalori}
 }
 
-// Fungsi greedyByDensity
 func greedyByDensity(T tabPendaki, capacity float64) greedySolution {
 	sort.Slice(T[:], func(i, j int) bool {
 		if T[i].jenis == "Minuman" && T[j].jenis != "Minuman" {
@@ -236,7 +230,6 @@ func greedyByDensity(T tabPendaki, capacity float64) greedySolution {
 	return greedySolution{selectedItems: selected, totalBerat: totalBerat, totalKalori: totalKalori}
 }
 
-// Fungsi untuk memeriksa apakah syarat minuman terpenuhi setelah barang-barang dipilih
 func checkMinumanCondition(totalBerat, totalKalori float64, selected []pendaki) bool {
 	var minumanBerat float64 = 0
 	var totalBerat2 float64 = 0
@@ -259,7 +252,6 @@ func checkMinumanCondition(totalBerat, totalKalori float64, selected []pendaki) 
 	return false
 }
 
-// greedySolution menyimpan solusi dari algoritma greedy
 type greedySolution struct {
 	selectedItems []pendaki
 	totalBerat    float64
