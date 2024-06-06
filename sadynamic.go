@@ -34,11 +34,9 @@ func main() {
 		fmt.Println("")
 	}
 
-	// Menggunakan dynamic programming
 	fmt.Println("== Dynamic Programming ==")
 	dpSolution := knapsackDynamic(X, kapasitas)
 
-	// Menampilkan solusi
 	fmt.Println("== Solusi ==")
 	fmt.Println("Total Berat yang Dipilih:", dpSolution.totalBerat)
 	fmt.Println("Total Kalori yang Dipilih:", dpSolution.totalKalori)
@@ -51,7 +49,7 @@ func main() {
 	}
 	fmt.Print("")
 	start := time.Now()
-	defer trackTime(start, "program") // Panggil fungsi trackTime setelah main() selesai
+	defer trackTime(start, "program")
 }
 
 func jenisBarang(T *tabPendaki, barang string) {
@@ -123,30 +121,23 @@ type dpSolution struct {
 func knapsackDynamic(items tabPendaki, capacity float64) dpSolution {
 	n := len(items)
 
-	// Inisialisasi tabel DP
 	dp := make([][]dpSolution, n+1)
 	for i := range dp {
 		dp[i] = make([]dpSolution, int(capacity)+1)
 	}
 
-	// Mengisi tabel DP secara iteratif
 	for i := 1; i <= n; i++ {
 		for w := 1; w <= int(capacity); w++ {
-			// Jika berat item lebih kecil dari kapasitas sisa
 			if items[i-1].berat <= float64(w) {
-				// Pertimbangkan untuk memasukkan item ini atau tidak
 				withItem := dp[i-1][w-int(items[i-1].berat)]
 				withItem.totalBerat += items[i-1].berat
 				withItem.totalKalori += items[i-1].totalkalori
 
 				withoutItem := dp[i-1][w]
 
-				// Prioritaskan barang jenis minuman
 				if items[i-1].jenis == "Minuman" {
 					if withItem.totalBerat < 3000 {
-						// Jika belum mencapai berat 3000 gram, pertimbangkan untuk memasukkan
 						if withItem.totalBerat+items[i-1].berat >= 3000 {
-							// Tetapi jika setelah ditambah berat item ini sudah mencapai 3000 gram, pastikan total kalori minimal 6000
 							if withItem.totalKalori+items[i-1].totalkalori >= 6000 {
 								withItem.selectedItems = append(withItem.selectedItems, items[i-1])
 								withItem.totalBerat += items[i-1].berat
@@ -155,14 +146,12 @@ func knapsackDynamic(items tabPendaki, capacity float64) dpSolution {
 							}
 						}
 					} else {
-						// Jika sudah mencapai berat 3000 gram, pastikan total kalori minimal 6000
 						if withItem.totalKalori+items[i-1].totalkalori >= 6000 && withItem.totalBerat <= capacity {
 							withItem.selectedItems = append(withItem.selectedItems, items[i-1])
 							dp[i][w] = withItem
 						}
 					}
 				} else {
-					// Untuk barang bukan minuman, pertimbangkan seperti biasa
 					if withItem.totalKalori > withoutItem.totalKalori && withItem.totalBerat <= capacity {
 						withItem.selectedItems = append(withItem.selectedItems, items[i-1])
 						dp[i][w] = withItem
@@ -171,16 +160,13 @@ func knapsackDynamic(items tabPendaki, capacity float64) dpSolution {
 					}
 				}
 			} else {
-				// Jika berat item lebih besar dari kapasitas sisa, tidak bisa dimasukkan
 				dp[i][w] = dp[i-1][w]
 			}
 		}
 	}
 
-	// Nilai maksimum akan berada di cell dp[n][capacity]
 	solution := dp[n][int(capacity)]
 
-	// Memeriksa apakah syarat minuman terpenuhi
 	solution.minumanSyarat = solution.totalBerat >= 3000 || solution.totalKalori >= 6000
 
 	return solution
