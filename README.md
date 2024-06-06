@@ -1,2 +1,2 @@
 # Tubes-Strategi-Algoritma
-Tugas Besar Strategi Algoritma
+Laporan ini dibuat untuk memenuhi tugas besar mata kuliah strategi algoritma. Laporan ini membahas tentang makanan serta minuman yang akan dibawa pendaki saat melakukan ekspedisi sesuai dengan kapasitas berat maksimum tas, kalori harian pendaki, dan kebutuhan minimal minuman.Studi kasus ini akan diimplementasikan menggunakan strategi algoritma greedy dan dynamic programming. Melalui tugas besar ini, kelompok kami akan menjelaskan konsep dari kedua algoritma dan melakukan pengimplementasian strategi tersebut menggunakan bahasa pemrograman JavaScript, serta menganalisis efisiensi dari kedua algoritma tersebut.
