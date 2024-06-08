@@ -3,6 +3,8 @@ Laporan ini dibuat untuk memenuhi tugas besar mata kuliah strategi algoritma. La
 
 
 Kapasitas maksimum diubah menjadi 6Kg karena kalau 10Kg itu terlalu besar dan biasanya pendaki tidak terlalu banyak membawa makanan/minuman sehingga kami ubah menjadi 6Kg
+
+
 Inputan untuk algoritma :
 Nasi Makanan 2000
 Indomie Makanan 700
